@@ -15,13 +15,16 @@
     "live",
     "javascript"
   ],
-  "contributors": {
-  	"Nicolas Lozano Arguelles",
-	"Alejandro U. Alvarez"
-  },
+  "contributors": [
+    "Nicolas Lozano Arguelles",
+    "Alejandro U. Alvarez"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Nichejs/Seminarjs/issues"
   },
-  "homepage": "https://github.com/Nichejs/Seminarjs"
+  "homepage": "https://github.com/Nichejs/Seminarjs",
+  "dependencies": {
+    "express": "^4.9.5"
+  }
 }
