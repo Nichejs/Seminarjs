@@ -1,0 +1,27 @@
+{
+  "name": "Seminarjs",
+  "version": "0.0.1",
+  "description": "Live Seminar system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nichejs/Seminarjs.git"
+  },
+  "keywords": [
+    "seminar",
+    "live",
+    "javascript"
+  ],
+  "contributors": {
+  	"Nicolas Lozano Arguelles",
+	"Alejandro U. Alvarez"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Nichejs/Seminarjs/issues"
+  },
+  "homepage": "https://github.com/Nichejs/Seminarjs"
+}
