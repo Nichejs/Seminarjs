@@ -1,6 +1,5 @@
 language: node_js
 node_js:
-- '0.11'
 - '0.10'
 before_script:
 - npm start &
@@ -12,5 +11,4 @@ deploy:
   app: curso2014
   on:
     branch: master
-    node: 0.10
     strategy: git
