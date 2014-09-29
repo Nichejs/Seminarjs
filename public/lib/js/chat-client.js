@@ -25,7 +25,8 @@ var Chat = (function ($) {
 		$messages: $('#plugin_Chat .viewport-content'),
 		$inputMessage: $('#plugin_Chat .chat-window input'),
 		$loginPage: $('#plugin_Chat .login-window'),
-		$chatPage: $('#plugin_Chat .chat-window')
+		$chatPage: $('#plugin_Chat .chat-window'),
+		smoothScrolling: 400
 	};
 
 	/**
@@ -190,7 +191,14 @@ var Chat = (function ($) {
 			} else {
 				settings.$messages.append($el);
 			}
-			settings.$messages[0].scrollTop = settings.$messages[0].scrollHeight;
+
+			if (settings.smoothScrolling > 0) {
+				settings.$messages.animate({
+					scrollTop: settings.$messages[0].scrollHeight
+				}, settings.smoothScrolling);
+			} else {
+				settings.$messages[0].scrollTop = settings.$messages[0].scrollHeight;
+			}
 		}
 
 		/**
