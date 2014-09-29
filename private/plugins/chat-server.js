@@ -39,7 +39,7 @@ module.exports = function (io) {
 				numUsers: numUsers
 			});
 
-			console.log("CHAT: Login " + socket.username);
+			console.log("CHAT: Login " + username);
 		});
 
 		// when the client emits 'typing', we broadcast it to others

@@ -24,12 +24,13 @@
 }
 
 #plugin_Chat .viewport-content{
-  position: relative;
+  height: 100%;
+  overflow: auto;
 }
 
 .row-chat{
   position:absolute;
-  bottom: 10px;
+  bottom: -30px;
   margin: 0;
 }
 

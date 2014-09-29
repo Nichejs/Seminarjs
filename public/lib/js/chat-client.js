@@ -1,13 +1,18 @@
+/**
+ * Seminarjs Chat plugin Client
+ * The HTML elements can be set from the init function to customize the appearance. That can be used for example to
+ * display the number of users online in other locations as well.
+ * @param  {Object} $ jQuery reference
+ * @return {Object}   Chat client object reference
+ */
 var Chat = (function ($) {
 	var FADE_TIME = 150; // ms
-	var TYPING_TIMER_LENGTH = 400; // ms
+	var TYPING_TIMER_LENGTH = 600; // ms
 	var COLORS = [
-    '#e21400', '#91580f', '#f8a700', '#f78b00',
-    '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
-    '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
-  ];
-
-	console.log("Chat loaded");
+	'#e21400', '#91580f', '#f8a700', '#f78b00',
+		'#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
+		'#3b88eb', '#3824aa', '#a700ff', '#d300e7'
+	];
 
 	var chat = {};
 
@@ -20,9 +25,16 @@ var Chat = (function ($) {
 		$messages: $('#plugin_Chat .viewport-content'),
 		$inputMessage: $('#plugin_Chat .chat-window input'),
 		$loginPage: $('#plugin_Chat .login-window'),
-		$chatPage: $('#plugin_Chat .chat-window')
+		$chatPage: $('#plugin_Chat .chat-window'),
+		smoothScrolling: 400
 	};
 
+	/**
+	 * Start the Chat client
+	 * @param  {Object} io      Socket.io client
+	 * @param  {Object} options Array of options
+	 * @return {void}
+	 */
 	chat.init = function (io, options) {
 
 		console.info("Initialized Seminarjs Chat client");
@@ -39,12 +51,18 @@ var Chat = (function ($) {
 		settings.$loginPage.show();
 		settings.$chatPage.hide();
 
+		/**
+		 * Update the online count
+		 * @param {Object} data Socket data frame, must have a numUsers attribute.
+		 */
 		function addParticipantsMessage(data) {
 			var message = '';
 			settings.$online.text(data.numUsers + " online");
 		}
 
-		// Sets the client's username
+		/**
+		 * Login the chat system
+		 */
 		function setUsername() {
 			username = cleanInput(settings.$usernameInput.val().trim());
 
@@ -60,7 +78,10 @@ var Chat = (function ($) {
 			}
 		}
 
-		// Sends a chat message
+		/**
+		 * Send a message to the client
+		 * @return {void}
+		 */
 		function sendMessage() {
 			var message = settings.$inputMessage.val();
 			// Prevent markup from being injected into the message
@@ -77,13 +98,22 @@ var Chat = (function ($) {
 			}
 		}
 
-		// Log a message
+		/**
+		 * Display a server log message
+		 * @param  {String} message Log message
+		 * @param  {Array}	options Message options, see addMessageElement
+		 * @return {void}
+		 */
 		function log(message, options) {
 			var $el = $('<div class="bubble log"/>').text(message);
 			addMessageElement($('<div class="bubble-container" />').append($el), options);
 		}
 
-		// Adds the visual chat message to the message list
+		/**
+		 * Add the HTML for a Chat message
+		 * @param {Object} data    Message data, must contain the attributes username and message
+		 * @param {Object} options Message options, see addMessageElement
+		 */
 		function addChatMessage(data, options) {
 			// Don't fade the message in if there is an 'X was typing'
 			var $typingMessages = getTypingMessages(data);
@@ -111,25 +141,33 @@ var Chat = (function ($) {
 			addMessageElement($messageDiv, options);
 		}
 
-		// Adds the visual chat typing message
+		/**
+		 * Add the typing HTML to the message list
+		 * @param {Object} data Message data, must contain the username attribute
+		 */
 		function addChatTyping(data) {
 			data.typing = true;
 			data.message = 'Escribiendo...';
 			addChatMessage(data);
 		}
 
-		// Removes the visual chat typing message
+		/**
+		 * Remove the typing HTML indicator
+		 * @param  {Object} data Message data, must contain the username attribute.
+		 * @return {void}
+		 */
 		function removeChatTyping(data) {
 			getTypingMessages(data).fadeOut(function () {
 				$(this).remove();
 			});
 		}
 
-		// Adds a message element to the messages and scrolls to the bottom
-		// el - The element to add as a message
-		// options.fade - If the element should fade-in (default = true)
-		// options.prepend - If the element should prepend
-		//   all other messages (default = false)
+		/**
+		 * Adds the HTML element for a message and scrolls the chat
+		 * to the bottom.
+		 * @param {Object} el      HTML object to be added
+		 * @param {Object} options Customization options. fade: boolean, whether the element should fade in. prepend: boolean, whether the message should prepend all others.
+		 */
 		function addMessageElement(el, options) {
 			var $el = $(el);
 
@@ -153,15 +191,29 @@ var Chat = (function ($) {
 			} else {
 				settings.$messages.append($el);
 			}
-			settings.$messages[0].scrollTop = settings.$messages[0].scrollHeight;
+
+			if (settings.smoothScrolling > 0) {
+				settings.$messages.animate({
+					scrollTop: settings.$messages[0].scrollHeight
+				}, settings.smoothScrolling);
+			} else {
+				settings.$messages[0].scrollTop = settings.$messages[0].scrollHeight;
+			}
 		}
 
-		// Prevents input from having injected markup
+		/**
+		 * Prevent code injection
+		 * @param  {String} input Input to be cleaned
+		 * @return {String}       Clean input
+		 */
 		function cleanInput(input) {
 			return $('<div/>').text(input).text();
 		}
 
-		// Updates the typing event
+		/**
+		 * Updates the typing event according to a timer
+		 * @return {void}
+		 */
 		function updateTyping() {
 			if (connected) {
 				if (!typing) {
@@ -181,14 +233,22 @@ var Chat = (function ($) {
 			}
 		}
 
-		// Gets the 'X is typing' messages of a user
+		/**
+		 * Get the `user` is typing HTML element for a given user
+		 * @param  {Object} data Message data, must contain a username attribute.
+		 * @return {DOMObject}   HTML element
+		 */
 		function getTypingMessages(data) {
 			return $('.typing').filter(function (i) {
 				return $(this).data('username') === data.username;
 			});
 		}
 
-		// Gets the color of a username through our hash function
+		/**
+		 * Generate a unique color for a username based on its hash
+		 * @param  {String} username User name
+		 * @return {String}          HTML color
+		 */
 		function getUsernameColor(username) {
 			// Compute hash code
 			var hash = 7;
@@ -199,6 +259,10 @@ var Chat = (function ($) {
 			var index = Math.abs(hash % COLORS.length);
 			return COLORS[index];
 		}
+
+		// --------------------------------------------- //
+		// 				   Event handlers                //
+		// --------------------------------------------- //
 
 		settings.$loginForm.on('submit', function (e) {
 			e.preventDefault();
