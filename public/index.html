@@ -14,6 +14,7 @@
     <link href="/lib/bootstrap-3.2.0/css/bootstrap.min.css" rel="stylesheet" media="all">
 
     <link href="/style.css" rel="stylesheet" media="all">
+    <link href="/lib/css/chat-irc.css" rel="stylesheet" media="all">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -60,8 +61,38 @@
           <div id="plugin_StaticContent"></div>
         </div>
         <div class="col-md-5">
-          <h2>Chat</h2>
-          <div id="plugin_Chat"></div>
+          <div id="plugin_Chat">
+            <div class="viewport-header row">
+              <div class="col-md-7"><h2>Chat</h2><small class="typing"></small></div>
+              <div class="col-md-5 text-right online"><div>online</div></div>                  
+            </div>
+            <div class="chat-window">
+              <div class="viewport">
+                <div class="viewport-content"></div>
+              </div>
+
+              <form class="row row-chat">
+                  <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Type your message" />
+
+                      <span class="input-group-btn">
+                          <button type="submit" class="btn btn-primary">Send</button>
+                      </span>
+                  </div>
+              </form>
+            </div>
+            <div class="login-window row">
+              <form>
+                  <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Username" />
+
+                      <span class="input-group-btn">
+                          <button type="submit" class="btn btn-primary">Login</button>
+                      </span>
+                  </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -75,5 +106,8 @@
     <!-- Bootstrap core JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/lib/js/chat-client.js"></script>
+    <script src="/lib/js/seminar.js"></script>
   </body>
 </html>
