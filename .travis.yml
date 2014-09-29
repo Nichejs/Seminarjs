@@ -1,9 +1,16 @@
 language: node_js
-
 node_js:
-  - "0.11"
-  - "0.10"
-
+- '0.11'
+- '0.10'
 before_script:
-  - npm start &
-  - sleep 1
+- npm start &
+- sleep 1
+deploy:
+  provider: heroku
+  api_key:
+    secure: YL29Rc3C2XqOm0Q4pz12zca6+ckADUqoPf0yYIbPL2pNbX5X4g8Ba5IXJONwefewni7xiWlXrZvIUXzCRME3oAG0Z8C1SD8FdyMavSaTNIvvd4KY20ft5n6BPehAV8oX2JhUy96WR6BFY5LR21IMDQwRJjANGkYrIp0/IST8pbw=
+  app: curso2014
+  on:
+    branch: master
+    node: 0.10
+    strategy: git
