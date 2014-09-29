@@ -4,6 +4,7 @@
 	"description": "Live Seminar system",
 	"main": "index.js",
 	"scripts": {
+		"start": "node index.js",
 		"test": "mocha test --recursive"
 	},
 	"repository": {
