@@ -13,9 +13,12 @@ var chat = require("./private/plugins/chat-server.js");
 app.set('port', (process.env.PORT || 5000))
 app.use(express.static(__dirname + '/public'))
 
-app.get('/', function (req, res) {
-	res.setHeader('Content-Type', 'text/HTML');
-	res.send('Hello World');
+app.get('/version', function (req, res) {
+	res.setHeader('Content-Type', 'application/json');
+	var pjson = require('./package.json');
+	res.send(JSON.stringify({
+		'version': pjson.version
+	}));
 });
 
 server.listen(app.get('port'), function () {
