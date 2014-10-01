@@ -4,4 +4,4 @@
 
 var socket = io();
 
-Chat.init();
+Chat.init(socket);

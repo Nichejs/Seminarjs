@@ -7,9 +7,6 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-// Plugins
-var chat = require("./private/plugins/chat-server.js");
-
 app.set('port', (process.env.PORT || 5000))
 app.use(express.static(__dirname + '/public'))
 
@@ -21,8 +18,15 @@ app.get('/version', function (req, res) {
 	}));
 });
 
+var App = {
+	express: app,
+	io: io
+};
+
+// Plugins
+var chat = require("Seminarjs-Chat");
+chat(App);
+
 server.listen(app.get('port'), function () {
 	console.log('Node server is running at localhost:' + app.get('port'))
 });
-
-chat(io);
