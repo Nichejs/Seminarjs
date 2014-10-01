@@ -24,7 +24,7 @@ var App = {
 };
 
 // Plugins
-var chat = require("Seminarjs-Chat");
+var chat = require("seminarjs-chat");
 chat(App);
 
 server.listen(app.get('port'), function () {
