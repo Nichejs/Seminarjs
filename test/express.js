@@ -7,7 +7,7 @@ var should = require('should'),
 describe('Express server', function () {
 	describe('Get version', function () {
 		it('should return the version', function (done) {
-			request('http://localhost:5000')
+			request('http://localhost:3000')
 				.get('/version')
 				.expect(200)
 				.end(function (err, res) {
@@ -17,7 +17,7 @@ describe('Express server', function () {
 
 					var pjson = require('../package.json');
 
-					if (res.body.version !== pjson.version) return done(err)
+					if (res.body['seminarjsVersion'] !== pjson.version) return done(err)
 					done()
 				})
 		});

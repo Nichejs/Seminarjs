@@ -20,8 +20,8 @@ function routes(app) {
 	app.get('/version', function (req, res) {
 		res.setHeader('Content-Type', 'application/json');
 		res.send(JSON.stringify({
-			'name': seminarjs.name,
-			'version': seminarjs.version
+			'name': seminarjs.get('name'),
+			'seminarjsVersion': seminarjs.version
 		}));
 	});
 
