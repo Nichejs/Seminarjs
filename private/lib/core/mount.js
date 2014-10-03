@@ -102,6 +102,18 @@ function mount(mountPath, parentApp, events) {
 		sessionOptions.key = 'seminarjs.sid';
 	}
 
+	if (!sessionOptions.resave) {
+		sessionOptions.resave = true;
+	}
+
+	if (!sessionOptions.saveUninitialized) {
+		sessionOptions.saveUninitialized = false;
+	}
+
+	if (!sessionOptions.secret) {
+		sessionOptions.secret = this.get('cookie secret');
+	}
+
 	sessionOptions.cookieParser = cookieParser(this.get('cookie secret'));
 
 	var sessionStore = this.get('session store');
