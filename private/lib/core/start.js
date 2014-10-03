@@ -104,6 +104,8 @@ function start(events) {
 		seminarjs.httpServer = http.createServer(app);
 		events.onHttpServerCreated && events.onHttpServerCreated();
 
+		seminarjs.io = require('socket.io')(seminarjs.httpServer);
+
 		var host = seminarjs.get('host'),
 			port = seminarjs.get('port'),
 			listen = seminarjs.get('listen'),

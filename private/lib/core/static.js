@@ -12,7 +12,7 @@ var path = require('path'),
 
 function static(app) {
 
-	console.log("[Start] Static server on " + __dirname + '../../../../public');
+	console.log("[Start] Static server");
 
 	app.use(express.static(__dirname + '../../../../public'))
 

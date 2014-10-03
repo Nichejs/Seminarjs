@@ -7,9 +7,11 @@
 function loadPlugin(plugin) {
 	console.log("[Load plugin] " + plugin);
 
-	// Plugins
+	var seminarjs = this;
+
+	// Load the plugin
 	var plugin = require("seminarjs-" + plugin);
-	plugin(this);
+	plugin(seminarjs);
 }
 
 module.exports = loadPlugin;

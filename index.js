@@ -2,8 +2,6 @@ var express = require('express'),
 	fs = require('fs'),
 	path = require('path'),
 	app = express(),
-	server = require('http').Server(app),
-	io = require('socket.io')(server),
 	_ = require('underscore');
 
 
@@ -34,7 +32,7 @@ var Seminarjs = function () {
 	};
 
 	this.express = app;
-	this.io = io;
+	this.io = null;
 
 	this.set('moduleRoot', moduleRoot);
 
