@@ -2,8 +2,6 @@
 logs
 *.log
 
-.anvil/*
-
 # Runtime data
 pids
 *.pid
@@ -28,7 +26,3 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
-
-#Enviroment variables
-.env
-*.env
