@@ -1,8 +1,10 @@
 Seminarjs
 =========
 
-[![Build Status](https://travis-ci.org/Nichejs/Seminarjs.svg?branch=master)](https://travis-ci.org/Nichejs/Seminarjs)
-[![Dependency Status](https://www.versioneye.com/user/projects/542c5277fc3f5c949d000179/badge.svg?style=flat)](https://www.versioneye.com/user/projects/542c5277fc3f5c949d000179)
+[![Build Status](http://img.shields.io/travis/Nichejs/Seminarjs/master.svg?style=flat-square)](https://travis-ci.org/Nichejs/Seminarjs)
+[![Dependency Status](http://img.shields.io/david/Nichejs/Seminarjs.svg?style=flat-square)](https://david-dm.org/Nichejs/Seminarjs)
+[![npm version](http://img.shields.io/npm/v/seminarjs.svg?style=flat-square)](https://www.npmjs.org/package/seminarjs)
+[![license](http://img.shields.io/npm/l/seminarjs.svg?style=flat-square)](https://www.npmjs.org/package/seminarjs)
 
 > Live Seminar system, specially designed for programming/technology courses.
 
