@@ -35,7 +35,8 @@
     "body-parser": "^1.9.0",
     "method-override": "^2.2.0",
     "express-session": "^1.8.2",
-    "connect-flash": "^0.1.1"
+    "connect-flash": "^0.1.1",
+    "parent-require": "^1.0.0"
   },
   "devDependencies": {
     "mocha": "^1.21.4",
