@@ -12,7 +12,7 @@ function loadPlugin(plugin) {
 	var seminarjs = this;
 
 	// Load the plugin
-	var plugin = prequire("seminarjs-" + plugin);
+	var plugin = require("seminarjs-" + plugin);
 	plugin(seminarjs);
 }
 
