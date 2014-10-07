@@ -4,7 +4,7 @@ var Auth = {
 
     signup: function (req, res, next) {
         //req.status store data related to the success or fail of the signup
-        req.status = '';
+        req.dbRead = false;
         if (req.body.email && req.body.password) {
             var email = req.body.email;
             var pass = req.body.password;
@@ -14,13 +14,12 @@ var Auth = {
                 }, function (err, user) {
                     // if there are any errors, return the error
                     if (err) {
-                        next();
+                        req.status = 'error';
                     }
 
                     // check to see if theres already a user with that email
                     if (user) {
                         req.status = 'fail';
-                        next();
                     } else {
 
                         // if there is no user with that email
@@ -36,17 +35,19 @@ var Auth = {
                             if (err)
                                 throw err;
                             req.status = 'successful';
-                            next();
                         });
                     }
 
                 });
+                req.dbRead = true;
             });
+            
         } else {
-            req.status = 'dataless'
-            next();
+            req.dbRead = true;
+            req.status = 'dataless';
         }
-
+        next();
+            
     },
     checkCredentials: function (req, res, next) {
         //req.status store data related to the success or fail of the signup
@@ -59,7 +60,7 @@ var Auth = {
             // we are checking to see if the user trying to login already exists
             Auth.app.user.findOne({
                 'local.email': email
-            }, function (err, user) {
+            }, function (err, user,next) {
                 // if there are any errors, return the error before anything else
                 if (err) {
                     next();
@@ -139,34 +140,53 @@ var Auth = {
         });
 
         // process the signup form
-        App.express.post('/signup', Auth.signup, function (req, res, next) {
+        App.express.post('/signup',  function (req, res, next) {
+             if (req.body.email && req.body.password) {
+            var email = req.body.email;
+            var pass = req.body.password;
+            process.nextTick(function () {
+                Auth.app.user.findOne({
+                    'local.email': email
+                }, function (err, user) {
+                    // if there are any errors, return the error
+                    if (err) {
+                        res.render('error.ejs', {
+                            message: 'Our fault. Please try signing up later'
+                        });
+                    }
 
-            switch (req.status) {
-            case 'successful':
-                console.log(req.status);
-                res.render('index.ejs');
-                break;
+                    // check to see if theres already a user with that email
+                    if (user) {
+                        res.render('signup.ejs', {
+                            message: 'Oups! I think you have been here before.'
+                        });
+                    } else {
 
-            case 'fail':
-                console.log(req.status);
-                res.render('signup.ejs', {
-                    message: 'Oups! I think you have been here before.'
-                });
-                break;
+                        // if there is no user with that email
+                        // create the user
+                        var newUser = new Auth.app.user();
 
-            case 'dataless':
-                console.log(req.status);
-                res.render('signup.ejs', {
-                    message: 'Oups! Some data got lost. Please provide it again.'
+                        // set the user's local credentials
+                        newUser.local.email = email;
+                        newUser.local.password = newUser.generateHash(pass);
+
+                        // save the user
+                        newUser.save(function (err) {
+                            if (err)
+                                throw err;
+                            res.render('index.ejs');
+                        });
+                    }
+
                 });
-                break;
-            default:
-                console.log(req.status);
-                res.render('error.ejs', {
-                    message: 'Our fault. Please try signing up later'
-                });
-                break;
-            }
+
+            });
+            
+        } else {
+            res.render('signup.ejs', {
+                            message: 'Oups! Some data got lost. Please provide it again.'
+                        });
+        }
 
         });
 
