@@ -1,51 +1,54 @@
 {
-	"name": "seminarjs",
-	"version": "0.0.1",
-	"description": "Live Seminar system",
-	"main": "index.js",
-	"scripts": {
-		"start": "node test/bootstrap.js",
-		"test": "mocha test --recursive"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/Nichejs/Seminarjs.git"
-	},
-	"keywords": [
+  "name": "seminarjs",
+  "version": "0.0.1",
+  "description": "Live Seminar system",
+  "main": "index.js",
+  "scripts": {
+    "start": "node test/bootstrap.js",
+    "test": "mocha test --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nichejs/Seminarjs.git"
+  },
+  "keywords": [
     "seminar",
     "live",
     "javascript"
   ],
-	"contributors": [
+  "contributors": [
     "Nicolas Lozano Arguelles",
     "Alejandro U. Alvarez"
   ],
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/Nichejs/Seminarjs/issues"
-	},
-	"homepage": "https://github.com/Nichejs/Seminarjs",
-	"dependencies": {
-		"express": "^4.9.5",
-		"socket.io": "^1.1.0",
-		"underscore": "^1.7.0",
-		"keystone-utils": "^0.1.12",
-		"cookie-parser": "^1.3.3",
-		"express-logger": "0.0.3",
-		"body-parser": "^1.9.0",
-		"method-override": "^2.2.0",
-		"express-session": "^1.8.2",
-		"connect-flash": "^0.1.1",
-		"parent-require": "^1.0.0"
-	},
-	"devDependencies": {
-		"mocha": "^1.21.4",
-		"should": "^4.0.4",
-		"supertest": "^0.14.0"
-	},
-	"readmeFilename": "README.md",
-	"engines": {
-		"node": ">= 0.10.28",
-		"npm": ">= 1.4.9"
-	}
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Nichejs/Seminarjs/issues"
+  },
+  "homepage": "https://github.com/Nichejs/Seminarjs",
+  "dependencies": {
+    "express": "^4.9.5",
+    "socket.io": "^1.1.0",
+    "underscore": "^1.7.0",
+    "keystone-utils": "^0.1.12",
+    "cookie-parser": "^1.3.3",
+    "express-logger": "0.0.3",
+    "body-parser": "^1.9.0",
+    "method-override": "^2.2.0",
+    "express-session": "^1.8.2",
+    "connect-flash": "^0.1.1",
+    "parent-require": "^1.0.0",
+    "mongodb": "^1.4.18",
+    "moment": "^2.8.3",
+    "compression": "^1.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^1.21.4",
+    "should": "^4.0.4",
+    "supertest": "^0.14.0"
+  },
+  "readmeFilename": "README.md",
+  "engines": {
+    "node": ">= 0.10.28",
+    "npm": ">= 1.4.9"
+  }
 }

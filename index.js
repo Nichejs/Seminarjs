@@ -28,7 +28,11 @@ var Seminarjs = function () {
 	this._options = {
 		'name': 'Seminarjs',
 		'brand': 'Seminarjs',
-		'logger': 'dev'
+		'compress': true,
+		'headless': false,
+		'logger': 'dev',
+		'auto update': false,
+		'model prefix': null
 	};
 
 	this.express = app;
@@ -54,17 +58,17 @@ var Seminarjs = function () {
 
 };
 
-_.extend(Seminarjs.prototype, require('./private/lib/core/options')(moduleRoot));
+_.extend(Seminarjs.prototype, require('./app/server/core/options')(moduleRoot));
 
 /* Attach core functionality to Seminarjs.prototype */
-Seminarjs.prototype.init = require('./private/lib/core/init');
-Seminarjs.prototype.connect = require('./private/lib/core/connect');
-Seminarjs.prototype.start = require('./private/lib/core/start');
-Seminarjs.prototype.mount = require('./private/lib/core/mount');
-Seminarjs.prototype.routes = require('./private/lib/core/routes');
-Seminarjs.prototype.static = require('./private/lib/core/static');
-Seminarjs.prototype.wrapHTMLError = require('./private/lib/core/wrapHTMLError');
-Seminarjs.prototype.loadPlugin = require('./private/lib/core/loadPlugin');
+Seminarjs.prototype.init = require('./app/server/core/init');
+Seminarjs.prototype.connect = require('./app/server/core/connect');
+Seminarjs.prototype.start = require('./app/server/core/start');
+Seminarjs.prototype.mount = require('./app/server/core/mount');
+Seminarjs.prototype.routes = require('./app/server/core/routes');
+Seminarjs.prototype.static = require('./app/server/core/static');
+Seminarjs.prototype.wrapHTMLError = require('./app/server/core/wrapHTMLError');
+Seminarjs.prototype.loadPlugin = require('./app/server/core/loadPlugin');
 
 /**
  * The exports object is an instance of Seminarjs.

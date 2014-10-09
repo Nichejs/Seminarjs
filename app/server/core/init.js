@@ -20,9 +20,9 @@ function init(options) {
 		this.app = express();
 	}
 
-	/*if (!this.mongoose) {
+	if (!this.mongoose) {
 		this.connect(require('mongoose'));
-	}*/
+	}
 
 	return this;
 

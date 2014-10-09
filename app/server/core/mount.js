@@ -54,7 +54,8 @@ var _ = require('underscore'),
 	logger = require('express-logger'),
 	bodyParser = require('body-parser'),
 	methodOverride = require('method-override'),
-	session = require('express-session');
+	session = require('express-session'),
+	compression = require('compression');
 
 var dashes = '\n------------------------------------------------\n';
 
@@ -245,6 +246,8 @@ function mount(mountPath, parentApp, events) {
 	app.set('views', this.getPath('views') || path.sep + 'views');
 	app.set('view engine', this.get('view engine'));
 
+	console.log("[Express views engine] " + this.get('view engine') + ' [dir] ' + this.get('views'));
+
 	// Apply locals
 
 	if (utils.isObject(this.get('locals'))) {
@@ -270,7 +273,9 @@ function mount(mountPath, parentApp, events) {
 	// Serve static assets
 
 	if (this.get('compress')) {
-		app.use(express.compress());
+		app.use(compression({
+			threshold: 512
+		}));
 	}
 
 	if (this.get('favico')) {
@@ -314,6 +319,7 @@ function mount(mountPath, parentApp, events) {
 
 	if (_.isArray(staticPaths)) {
 		_.each(staticPaths, function (value) {
+			console.log("[express.static] " + this.expandPath(value));
 			app.use(express.static(this.expandPath(value)));
 		}, this);
 	}
@@ -538,11 +544,13 @@ function mount(mountPath, parentApp, events) {
 
 	} else {
 
-		//this.mongoose.connect(this.get('mongo'));
+		this.mongoose.connect(this.get('mongo'));
 
 	}
 
-	/*this.mongoose.connection.on('error', function (err) {
+	//require('../router')(app);
+
+	this.mongoose.connection.on('error', function (err) {
 
 		if (seminarjs.get('logger')) {
 			console.log('------------------------------------------------');
@@ -569,13 +577,12 @@ function mount(mountPath, parentApp, events) {
 				events.onMount();
 				setHandlers();
 			};
-			seminarjs.applyUpdates(mounted);
 		} else {
 			events.onMount && events.onMount();
 			setHandlers();
 		}
 
-	});*/
+	});
 
 	// Fire mount event
 	events.onMount();
