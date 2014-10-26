@@ -65,6 +65,7 @@ Seminarjs.prototype.routes = require('./private/lib/core/routes');
 Seminarjs.prototype.static = require('./private/lib/core/static');
 Seminarjs.prototype.wrapHTMLError = require('./private/lib/core/wrapHTMLError');
 Seminarjs.prototype.loadPlugin = require('./private/lib/core/loadPlugin');
+Seminarjs.prototype.users = require('./private/lib/core/users');
 
 /**
  * The exports object is an instance of Seminarjs.
