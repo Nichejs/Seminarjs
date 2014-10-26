@@ -25,8 +25,8 @@ function routes(app) {
 		}));
 	});
 
-	app.get('/', function (req, res) {
-		res.render('home.ejs'); // load the index.ejs file
+	app.use('/admin', function (req, res) {
+		res.render('../../views/' + req.path + '.ejs'); // load the index.ejs file
 	});
 
 	return this;
